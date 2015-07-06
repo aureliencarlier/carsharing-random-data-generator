@@ -3,13 +3,12 @@ package view;
 import java.awt.BorderLayout;
 import java.awt.Component;
 import java.awt.Dimension;
+import java.awt.EventQueue;
 import java.awt.FlowLayout;
 import java.awt.Toolkit;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-import java.io.IOException;
 import java.nio.file.Files;
-import java.nio.file.LinkOption;
 import java.nio.file.Path;
 import java.nio.file.Paths;
 
@@ -24,6 +23,7 @@ import javax.swing.JSpinner;
 import javax.swing.JTextField;
 import javax.swing.SpinnerNumberModel;
 import javax.swing.SwingConstants;
+import javax.swing.UIManager;
 import javax.swing.WindowConstants;
 import javax.swing.border.TitledBorder;
 
@@ -35,7 +35,7 @@ import core.Generator_StationsAndDemand;
 
 public class RandomGenerator_frame extends JDialog implements ActionListener {
 
-	private static final long serialVersionUID = 1L;
+	private static final long serialVersionUID = 134L;
 
 	// GUI parameters
 	private JPanel contentPanel;
@@ -63,6 +63,26 @@ public class RandomGenerator_frame extends JDialog implements ActionListener {
 	public enum GeneratorFrameStatus {standAloneFrame, onlyTuneParametersFrame};
 	public static final int APPROVE_OPTION = 1;
 	public static final int CANCEL_OPTION = 0;
+	
+	public static void main(String[] args) {
+
+		EventQueue.invokeLater(new Runnable() {
+			public void run() {
+
+				/*********************
+				 * SYSTEM PARAMETERS *
+				 *********************/
+				try {UIManager.setLookAndFeel("com.sun.java.swing.plaf.windows.WindowsLookAndFeel");}
+				catch (Exception e) {e.printStackTrace();}
+
+				/********************
+				 * Display the view *
+				 ********************/				
+				RandomGenerator_frame view = new RandomGenerator_frame(GeneratorFrameStatus.standAloneFrame);
+				view.setVisible(true);
+			}
+		});
+	}
 
 	public RandomGenerator_frame(GeneratorFrameStatus frameStatus){
 
