@@ -9,6 +9,7 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.io.IOException;
 import java.nio.file.Files;
+import java.nio.file.LinkOption;
 import java.nio.file.Path;
 import java.nio.file.Paths;
 
@@ -17,11 +18,13 @@ import javax.swing.JCheckBox;
 import javax.swing.JDialog;
 import javax.swing.JFileChooser;
 import javax.swing.JLabel;
+import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.JSpinner;
 import javax.swing.JTextField;
 import javax.swing.SpinnerNumberModel;
 import javax.swing.SwingConstants;
+import javax.swing.WindowConstants;
 import javax.swing.border.TitledBorder;
 
 import net.miginfocom.swing.MigLayout;
@@ -47,7 +50,7 @@ public class RandomGenerator_frame extends JDialog implements ActionListener {
 	private JTextField tf_generalParam_saveDir;
 	private JCheckBox chckbx_MakeStatistics;
 	private RandomGeneratorParameters_panel randomGeneratorParameters_panel;
-	
+
 	// Other parameters
 	private String _frameTitle;
 	private String _dirName;
@@ -55,12 +58,12 @@ public class RandomGenerator_frame extends JDialog implements ActionListener {
 	private Path path_saveDir;
 	private GeneratorFrameStatus frameStatus;
 	private int returnState;
-	
+
 	// constants
 	public enum GeneratorFrameStatus {standAloneFrame, onlyTuneParametersFrame};
 	public static final int APPROVE_OPTION = 1;
 	public static final int CANCEL_OPTION = 0;
-	
+
 	public RandomGenerator_frame(GeneratorFrameStatus frameStatus){
 
 		// set default values
@@ -70,7 +73,8 @@ public class RandomGenerator_frame extends JDialog implements ActionListener {
 		path_saveDir = Paths.get(System.getProperty("user.home"), _dirName);
 		this.frameStatus = frameStatus;
 		this.setTitle(_frameTitle);
-		
+		this.setDefaultCloseOperation(WindowConstants.DISPOSE_ON_CLOSE);
+
 		initComponents();
 		initSizeAndLocation();
 	}
@@ -89,7 +93,7 @@ public class RandomGenerator_frame extends JDialog implements ActionListener {
 	private void initComponents(){
 		contentPanel = new JPanel(new BorderLayout());
 		this.setContentPane(contentPanel);
-		
+
 		switch(frameStatus){
 		case standAloneFrame : {
 			initHeader();
@@ -102,7 +106,7 @@ public class RandomGenerator_frame extends JDialog implements ActionListener {
 		}; break;
 		}
 	}
-	
+
 	private void initHeader() {
 		generalParameters_panel = new JPanel(new MigLayout("", "[][120px:n,grow,fill][right][40px:n][50px:n][]", "[][]"));
 		generalParameters_panel.setBorder(new TitledBorder(null, "General Parameters", TitledBorder.LEADING, TitledBorder.TOP, null, null));
@@ -153,9 +157,9 @@ public class RandomGenerator_frame extends JDialog implements ActionListener {
 		footer_panel.add(btn_run, "cell 1 0,grow");
 		contentPanel.add(footer_panel, BorderLayout.SOUTH);
 	}
-	
+
 	private void initOKCancelButtons() {
-		
+
 		footer_panel = new JPanel();
 		btn_ok = new JButton("OK");
 		btn_cancel = new JButton("Cancel");
@@ -166,14 +170,14 @@ public class RandomGenerator_frame extends JDialog implements ActionListener {
 		footer_panel.add(btn_cancel);
 		contentPanel.add(footer_panel, BorderLayout.SOUTH);
 	}
-	
+
 	public int openAndTune(Component parent){
 		this.setModalityType(ModalityType.APPLICATION_MODAL);
 		this.setLocationRelativeTo(parent);
 		this.setVisible(true);
 		return returnState;
 	}
-	
+
 	public Element getGeneratorParameters(){
 		return randomGeneratorParameters_panel.getParameters();
 	}
@@ -193,17 +197,27 @@ public class RandomGenerator_frame extends JDialog implements ActionListener {
 		}
 		else if (source == btn_run){
 			try {
-
-				Files.createDirectories(path_saveDir);
-				Generator_StationsAndDemand generator = new Generator_StationsAndDemand(randomGeneratorParameters_panel.getParameters());
 				
-				for (int i=1 ; i <= (int)spi_NB_FILES.getValue() ; i++){
-					generator.generate();
-					generator.exportDataToXML(path_saveDir.resolve("randomGeneratedData-" + i + ".xml"));
-					generator.reset();
+				_fileName = tf_FileName.getText();
+				if(!Files.exists(path_saveDir.resolve(_fileName + "-1.xml"))){
+
+					Files.createDirectories(path_saveDir);
+					Generator_StationsAndDemand generator = new Generator_StationsAndDemand(randomGeneratorParameters_panel.getParameters());
+
+					for (int i=1 ; i <= (int)spi_NB_FILES.getValue() ; i++){
+						generator.generate();
+						generator.exportDataToXML(path_saveDir.resolve(_fileName + "-" + i + ".xml"));
+						generator.reset();
+					}
+					
+					JOptionPane.showMessageDialog(null, "Instance(s) generated !", "Info", JOptionPane.INFORMATION_MESSAGE);
+				}				
+				else {
+					JOptionPane.showMessageDialog(null, "Error ! Some files with the same name have been already generated.", "Error", JOptionPane.ERROR_MESSAGE);
 				}
 
-			} catch (IOException e) {e.printStackTrace();}
+
+			} catch (Exception e) {e.printStackTrace();}
 		}
 		else if (source == btn_ok){
 			returnState = APPROVE_OPTION;
