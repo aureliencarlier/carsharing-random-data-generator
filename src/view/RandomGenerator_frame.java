@@ -201,6 +201,10 @@ public class RandomGenerator_frame extends JDialog implements ActionListener {
 	public Element getGeneratorParameters(){
 		return randomGeneratorParameters_panel.getParameters();
 	}
+	
+	public void setGeneratorParameters(Element params){
+		randomGeneratorParameters_panel.setParameters(params);
+	}
 
 	@Override
 	public void actionPerformed(ActionEvent ae) {

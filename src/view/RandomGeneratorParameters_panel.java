@@ -175,8 +175,6 @@ public class RandomGeneratorParameters_panel extends JPanel implements ActionLis
 		btn_tuneDemandProfile = new JButton("Tune");
 		panel_centroidMethodParameters.add(btn_tuneDemandProfile, "cell 3 2");
 		btn_tuneDemandProfile.addActionListener(this);
-		
-		// TODO : add an opening frame to show and/or tune the demand distribution 
 				
 		JLabel lbl_MorningRushTime = new JLabel("Morning rush (sub -> centre) time slot (h) :");
 		panel_centroidMethodParameters.add(lbl_MorningRushTime, "cell 0 3");
@@ -279,6 +277,56 @@ public class RandomGeneratorParameters_panel extends JPanel implements ActionLis
 		generatorParameters.addContent(demandsOverTime);
 		
 		return generatorParameters;
+	}
+	
+	public void setParameters(Element params){ // TODO
+		for(Element e : params.getChildren()){
+			switch(e.getName()){
+			case "generationmethod" :{
+				cb_generationMethod.setSelectedItem((e.getAttributeValue("value").equals("centroid"))? GenerationMethod.Centroid : null);
+				cb_generationMethod.setSelectedItem((e.getAttributeValue("value").equals("uniform"))? GenerationMethod.Uniform : null);
+			}; break;
+			case "nbstations" :{
+
+			}; break;
+			case "nbdemands" :{
+
+			}; break;
+			case "stationsize" :{
+
+			}; break;
+			case "time" :{
+
+			}; break;
+			case "sideofthewholegraphm" :{
+
+			}; break;
+			case "averagecarspeedkmh" :{
+
+			}; break;
+			case "maxdistanceforatravelm" :{
+
+			}; break;
+			case "proportioncentroidareap" :{
+
+			}; break;
+			case "concentrationcenterp" :{
+
+			}; break;
+			case "morningrush" :{
+
+			}; break;
+			case "eveningrush" :{
+
+			}; break;
+			case "penaltycoefrushhours" :{
+
+			}; break;
+			case "demandsovertime" :{
+
+			}; break;
+			}
+		}
 	}
 	
 	@Override
