@@ -296,7 +296,7 @@ public class RandomGeneratorParameters_panel extends JPanel implements ActionLis
 				spi_STATION_SIZE_UB.setValue(Integer.parseInt(e.getAttributeValue("ub")));
 			}; break;
 			case "time" :{
-				spi_TIME_STEP_MIN.setValue(Integer.parseInt(e.getAttributeValue("timestepmin")));
+				spi_TIME_STEP_MIN.setValue(e.getAttributeValue("timestepmin"));
 			}; break;
 			case "sideofthewholegraphm" :{
 				spi_SIDE_OF_THE_WHOLE_GRAPH_M.setValue(Integer.parseInt(e.getAttributeValue("value")));
@@ -308,23 +308,23 @@ public class RandomGeneratorParameters_panel extends JPanel implements ActionLis
 				spi_MAX_DISTANCE_FOR_A_TRAVEL_M.setValue(Integer.parseInt(e.getAttributeValue("value")));
 			}; break;
 			case "proportioncentroidareap" :{
-				spi_PROPORTION_CENTROID_AREA_P.setValue(Integer.parseInt(e.getAttributeValue("value")));
+				spi_PROPORTION_CENTROID_AREA_P.setValue((int)(Double.parseDouble(e.getAttributeValue("value"))*100));
 			}; break;
 			case "concentrationcenterp" :{
-				spi_CONCENTRATION_CENTER_P.setValue(Integer.parseInt(e.getAttributeValue("value")));
+				spi_CONCENTRATION_CENTER_P.setValue((int)(Double.parseDouble(e.getAttributeValue("value"))*100));
 			}; break;
 			case "morningrush" :{
 				spi_MORNING_RUSH_LB_H.setValue(Integer.parseInt(e.getAttributeValue("lb")));
 				spi_MORNING_RUSH_UB_H.setValue(Integer.parseInt(e.getAttributeValue("ub")));
-				spi_DEMAND_PROP_DURING_MORNING_RUSH_P.setValue(Integer.parseInt(e.getAttributeValue("demandprop")));
+				spi_DEMAND_PROP_DURING_MORNING_RUSH_P.setValue((int)(Double.parseDouble(e.getAttributeValue("demandprop"))*100));
 			}; break;
 			case "eveningrush" :{
 				spi_EVENING_RUSH_LB_H.setValue(Integer.parseInt(e.getAttributeValue("lb")));
 				spi_EVENING_RUSH_UB_H.setValue(Integer.parseInt(e.getAttributeValue("ub")));
-				spi_DEMAND_PROP_DURING_EVENING_RUSH_P.setValue(Integer.parseInt(e.getAttributeValue("demandprop")));
+				spi_DEMAND_PROP_DURING_EVENING_RUSH_P.setValue((int)(Double.parseDouble(e.getAttributeValue("demandprop"))*100));
 			}; break;
 			case "penaltycoefrushhours" :{
-				spi_PENALTY_COEF_RUSHHOURS_P.setValue(Integer.parseInt(e.getAttributeValue("value")));
+				spi_PENALTY_COEF_RUSHHOURS_P.setValue((int)(Double.parseDouble(e.getAttributeValue("value"))*100));
 			}; break;
 			case "demandsovertime" :{
 				for(Element demand : e.getChildren("demand")){

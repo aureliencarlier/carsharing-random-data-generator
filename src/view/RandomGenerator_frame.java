@@ -8,6 +8,7 @@ import java.awt.FlowLayout;
 import java.awt.Toolkit;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
@@ -30,6 +31,8 @@ import javax.swing.border.TitledBorder;
 import net.miginfocom.swing.MigLayout;
 
 import org.jdom2.Element;
+import org.jdom2.JDOMException;
+import org.jdom2.input.SAXBuilder;
 
 import core.Generator_StationsAndDemand;
 
@@ -77,9 +80,17 @@ public class RandomGenerator_frame extends JDialog implements ActionListener {
 
 				/********************
 				 * Display the view *
-				 ********************/				
+				 ********************/	
 				RandomGenerator_frame view = new RandomGenerator_frame(GeneratorFrameStatus.standAloneFrame);
 				view.setVisible(true);
+				
+				// for debug :
+				Path p = Paths.get("D:", "workspace eclipse", "carsharing_demand_generator_solver", "defaultParams", "testInputs.inputs");
+				try {
+					Element generatorParameters = new SAXBuilder().build(p.toFile()).getRootElement().getChild("generatorParameters");
+					view.setGeneratorParameters(generatorParameters);
+				} catch (JDOMException | IOException exception) {exception.printStackTrace();}
+				
 			}
 		});
 	}
