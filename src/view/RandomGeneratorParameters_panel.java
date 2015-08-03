@@ -282,8 +282,12 @@ public class RandomGeneratorParameters_panel extends JPanel implements ActionLis
 		for(Element e : params.getChildren()){
 			switch(e.getName()){
 			case "generationmethod" :{
-				cb_generationMethod.setSelectedItem((e.getAttributeValue("value").equals("centroid"))? GenerationMethod.Centroid : null);
-				cb_generationMethod.setSelectedItem((e.getAttributeValue("value").equals("uniform"))? GenerationMethod.Uniform : null);
+				if(e.getAttributeValue("value").equals("centroid")){
+					cb_generationMethod.setSelectedItem(GenerationMethod.Centroid);
+				}
+				else if(e.getAttributeValue("value").equals("uniform")){
+					cb_generationMethod.setSelectedItem(GenerationMethod.Uniform);
+				}
 			}; break;
 			case "nbstations" :{
 				spi_NB_STATIONS.setValue(Integer.parseInt(e.getAttributeValue("value")));
