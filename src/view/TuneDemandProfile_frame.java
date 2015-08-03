@@ -46,7 +46,7 @@ public class TuneDemandProfile_frame extends JDialog implements ActionListener, 
 		panel_demandDistribution.setBorder(new TitledBorder(null, "Demand distribution", TitledBorder.LEADING, TitledBorder.TOP, null, null));
 		
 		for(int i=0 ; i < currentValues.length ; i++){
-			JSlider slider = new JSlider(SwingConstants.VERTICAL, 0, 100, currentValues[i]);
+			JSlider slider = new JSlider(SwingConstants.VERTICAL, 0, 100, 0);
 			slider.setFocusable(false);
 			slider.addChangeListener(this);
 			panel_demandDistribution.add(slider, "cell " + i + " " + 0 + ", center, wmin 25");
@@ -56,6 +56,7 @@ public class TuneDemandProfile_frame extends JDialog implements ActionListener, 
 			mapDemand.put(i, slider);
 		}
 		panel_demandDistribution.add(new JLabel("time (hours)"), "cell " + currentValues.length + " " + 1);
+		this.setDemandProfile(currentValues); // set default demand profile values
 		
 		JPanel panel_buttons = new JPanel(new FlowLayout(FlowLayout.RIGHT));
 		contentPanel.add(panel_buttons, BorderLayout.SOUTH);
@@ -89,6 +90,12 @@ public class TuneDemandProfile_frame extends JDialog implements ActionListener, 
 
 	public HashMap<Integer, JSlider> getMapDemand() {
 		return mapDemand;
+	}
+	
+	public void setDemandProfile(Integer[] demandProfile){
+		for(int i=0 ; i < demandProfile.length ; i++){
+			mapDemand.get(i).setValue(demandProfile[i]);
+		}
 	}
 
 	@Override

@@ -35,7 +35,7 @@ import core.Generator_StationsAndDemand;
 
 public class RandomGenerator_frame extends JDialog implements ActionListener {
 
-	private static final long serialVersionUID = 134L;
+	private static final long serialVersionUID = 135L;
 
 	// GUI parameters
 	private JPanel contentPanel;
