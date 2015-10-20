@@ -570,6 +570,7 @@ public class Generator_StationsAndDemand {
 
 	public void set_nbTSInOneHour(int _nbTSInOneHour) {
 		this._nbTSInOneHour = _nbTSInOneHour;
+		set_nbTSInOneDay(this._nbTSInOneHour * 24);
 	}
 
 	public double get_averagecarspeed_kmh() {
@@ -578,6 +579,10 @@ public class Generator_StationsAndDemand {
 
 	public void set_averagecarspeed_kmh(double _averagecarspeed_kmh) {
 		this._averagecarspeed_kmh = _averagecarspeed_kmh;
+	}
+	
+	public void set_nbTSInOneDay(int _nbTSInOneDay) {
+		this._nbTSInOneDay = _nbTSInOneDay;
 	}
 
 	/**
