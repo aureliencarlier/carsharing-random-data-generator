@@ -564,6 +564,22 @@ public class Generator_StationsAndDemand {
 		return _TS_min;
 	}
 
+	public int get_nbTSInOneHour() {
+		return _nbTSInOneHour;
+	}
+
+	public void set_nbTSInOneHour(int _nbTSInOneHour) {
+		this._nbTSInOneHour = _nbTSInOneHour;
+	}
+
+	public double get_averagecarspeed_kmh() {
+		return _averagecarspeed_kmh;
+	}
+
+	public void set_averagecarspeed_kmh(double _averagecarspeed_kmh) {
+		this._averagecarspeed_kmh = _averagecarspeed_kmh;
+	}
+
 	/**
 	 * @param lb
 	 * @param ub
